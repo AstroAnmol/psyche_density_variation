@@ -1,0 +1,50 @@
+# LAMMPS / LIGGGHTS simulation outputs
+log.lammps
+log.liggghts
+*.log
+results/
+post/
+dump*
+*.dump
+*.lammpstrj
+*.post
+*.vtk
+*.xyz
+
+# LAMMPS / LIGGGHTS restart & binary files
+# *.static
+# *.restart
+# *.restart.*
+# restart.*
+
+# HPC / Job Scheduler output files (Slurm, PBS, etc.)
+slurm-*.out
+slurm-*.err
+*.o[0-9]*
+*.e[0-9]*
+core.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+venv/
+.venv/
+env/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
