@@ -1,4 +1,4 @@
-### Avalanching experiment with mixture of different density particles (metallic and rocky) at 25% metallic by number
+### Avalanche particles psyche gravity before settling them in new gravity###
 
 ### Initialization
 # Preliminaries
@@ -7,7 +7,7 @@ atom_style      hybrid granular dipole
 atom_modify     sort 10000 0
 
 # boundaries
-boundary        f f f
+boundary        f f fs
 
 newton          off
 hard_particles  yes
@@ -17,6 +17,8 @@ communicate     single vel yes
 processors      4 3 3
 # running on 36 processors on dustiest
 
+#############################
+read_restart ./restart_setup_1_filled.static
 
 ### VARIABLES DEFINITION
 
@@ -26,10 +28,6 @@ variable        dom_width  equal 1 # 1 meter
 variable        dom_height equal 1.5 # 1.5 meters
 variable        mid_wall   equal 1.5 # 1.5 meters
 
-# Declare domain
-region          domain block 0 ${mid_wall} 0 ${dom_width} 0 ${dom_height} units box
-# Five types of materials to be used - 1,2,3: particles, 4: floor, 5: walls
-create_box      5 domain
 
 # variable        dom_dia equal qrt(${dom_length}*${dom_length}+${dom_width}*${dom_width}+${dom_height}*${dom_height})
 
@@ -339,11 +337,11 @@ fix             wall_y1 all wall/gran model hertz tangential history primitive t
 fix             wall_y2 all wall/gran model hertz tangential history primitive type 5 yplane ${dom_width}
 
 ## wall in centre which is removed to simulate mass wasting
-fix             wall_center all wall/gran model hertz tangential history primitive type 5  xplane ${mid_wall}
+fix             wall_center all wall/gran model hertz tangential history primitive type 5 xplane ${mid_wall}
 
 # Gravity
 # setting the particle assembly in earth gravity
-fix             grav all gravity ${earth_g} vector 0.0 0.0 -1.0 # negative z
+fix             grav all gravity ${psyche_g} vector 0.0 0.0 -1.0 # negative z
 
 # Time step
 timestep        ${dt} #seconds 
@@ -361,30 +359,6 @@ variable        2_5_particle_rad equal ${particle_radius}*2.5
 variable        number_of_particles equal 10000
 
 variable        fill_height equal 1.2 # meter
-
-# particle ground
-region          floor block EDGE EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
-lattice         hcp ${particle_dia}
-create_atoms    4 region floor
-group           pts_floor region floor
-set             group pts_floor density ${density_floor} diameter ${particle_dia}
-
-# particles and their distribution
-fix	            pts1 all particletemplate/sphere 1299709 atom_type 1 density constant ${density_particle1} radius constant ${particle_radius}
-fix             pts2 all particletemplate/sphere 2574239 atom_type 2 density constant ${density_particle2} radius constant ${particle_radius}
-fix             pts3 all particletemplate/sphere 256211 atom_type 3 density constant ${density_particle3} radius constant ${particle_radius}
-
-fix             pdd1 all particledistribution/discrete/numberbased 2113379 3 pts1 0.33 pts2 0.33 pts3 0.33
-
-# # region and insertion
-region          insertion_b block EDGE ${mid_wall} EDGE EDGE ${fill_height} EDGE 
-group           prtcls region insertion_b
-fix             ins prtcls insert/rate/region seed 104729 distributiontemplate pdd1 nparticles ${number_of_particles} &
-                particlerate 5000 insert_every 2000 overlapcheck yes region insertion_b ntry_mc 50000
-
-
-# region and insertion
-group		    nve_group region domain
 
 ### Detailed settings
 # apply nve integration to all particles that are inserted as single particles
@@ -406,20 +380,106 @@ velocity       all set 0. 0. 0.
 ## freeze
 fix             floor_freeze pts_floor freeze
 
-# Fill the left half (1 secs)
-run             ${one_second_steps}     #1.0 sec
+run           0
 
-run             ${one_second_steps}     #1.0 sec
+# particle ground
+region          floor block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
+lattice         hcp ${particle_dia}
+create_atoms    4 region floor
+group           pts_floor region floor
+set             group pts_floor density ${density_floor} diameter ${particle_dia}
 
-run             ${one_second_steps}     #1.0 sec
+unfix           floor_freeze
+fix             floor_freeze pts_floor freeze
 
-run             ${one_second_steps}     #1.0 sec
+# Let particles settle in new gravity
+print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
+run            ${one_second_steps}   #1 sec
 
-run             ${one_second_steps}     #1.0 sec
+print           "INFO: Settling run complete."
+write_restart   restart_setup_1_settled_1s.static
+print           "INFO: Restart file 'restart_setup_1_settled_1s.static' written."
+
+print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
+run            ${one_second_steps}   #1 sec
+
+print           "INFO: Settling run complete."
+write_restart   restart_setup_1_settled_2s.static
+print           "INFO: Restart file 'restart_setup_1_settled_2s.static' written."
+
+print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
+run            ${one_second_steps}   #1 sec
+
+print           "INFO: Settling run complete."
+write_restart   restart_setup_1_settled_3s.static
+print           "INFO: Restart file 'restart_setup_1_settled_3s.static' written."
 
 
-# Stop insertion
-unfix           ins
+# Increase the domain:
+fix             wall_x2 all wall/gran model hertz tangential history primitive type 4 xplane ${dom_length}  
 
-write_restart   restart_setup_1_filled.static
-print           "INFO: Restart file 'restart_setup_1_filled.static' written."
+change_box      all boundary f f fs x final 0 ${dom_length} # 280 mm
+
+# particle ground
+region          floor_full block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
+lattice         hcp ${particle_dia}
+create_atoms    4 region floor_full
+group           pts_floor_full region floor_full
+set             group pts_floor_full density ${density_floor} diameter ${particle_dia}
+
+unfix           floor_freeze
+fix             floor_freeze pts_floor_full freeze
+
+# Pull the stopper
+unfix           wall_center
+print           "INFO: Center wall unfix_ed. Stopper pulled."
+
+
+# --- Avalanche Phase ---
+print           "INFO: Starting avalanching simulation for ${two_second_steps} steps (2 seconds)."
+
+
+# RUN FOR 2.0 SECONDS
+run             ${two_second_steps} 
+                # "write_restart restart_mag_drop.static"
+
+print           "INFO: Avalanching run for 2 seconds complete."
+
+write_restart   restart_setup_1_2s.static
+print           "INFO: Restart file 'restart_setup_1_2s.static' written."
+
+# RUN FOR 2.0 SECONDS
+run             ${two_second_steps} 
+
+print           "INFO: Avalanching run for 2 seconds complete."
+
+write_restart   restart_setup_1_4s.static
+print           "INFO: Restart file 'restart_setup_1_4s.static' written."
+
+# RUN FOR 2.0 SECONDS
+run             ${two_second_steps} 
+
+print           "INFO: Avalanching run for 2 seconds complete."
+
+write_restart   restart_setup_1_6s.static
+print           "INFO: Restart file 'restart_setup_1_6s.static' written."
+
+# RUN FOR 2.0 SECONDS
+run             ${two_second_steps} 
+
+print           "INFO: Avalanching run for 2 seconds complete."
+
+write_restart   restart_setup_1_8s.static
+print           "INFO: Restart file 'restart_setup_1_8s.static' written."
+
+# RUN FOR 2.0 SECONDS
+run             ${two_second_steps} 
+
+print           "INFO: Avalanching run for 2 seconds complete."
+
+write_restart   restart_setup_1_10s.static
+print           "INFO: Restart file 'restart_setup_1_10s.static' written."
+
+print           "INFO: Main Avalanche Phase Completed."
+
+print           "INFO: Simulation ended."
