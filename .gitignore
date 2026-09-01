@@ -11,6 +11,10 @@ dump*
 *.vtk
 *.xyz
 
+# LAMMPS / LIGGGHTS binaries and executables
+lmp_*
+lmp_auto
+
 # LAMMPS / LIGGGHTS restart & binary files
 # *.static
 # *.restart
