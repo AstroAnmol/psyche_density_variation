@@ -287,6 +287,7 @@ variable        neighstep equal 1e-2/${dt} # create a new neigh list
 # Variables for run times
 variable        half_second_steps equal 0.5/${dt} # number of steps for 0.5 seconds time
 variable        one_second_steps equal 1/${dt} # number of steps for 1.0 seconds time
+variable        two_second_steps equal 2/${dt} # number of steps for 2.0 seconds time
 variable        0_1_second_steps equal 0.1/${dt}
 
 ## DEFINITING SIM PROPERTIES
