@@ -397,24 +397,40 @@ fix             floor_freeze pts_floor freeze
 print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
 run            ${one_second_steps}   #1 sec
 
-print           "INFO: Settling run complete."
 write_restart   restart_setup_1_settled_1s.static
 print           "INFO: Restart file 'restart_setup_1_settled_1s.static' written."
 
 print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
 run            ${one_second_steps}   #1 sec
 
-print           "INFO: Settling run complete."
 write_restart   restart_setup_1_settled_2s.static
 print           "INFO: Restart file 'restart_setup_1_settled_2s.static' written."
 
 print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
 run            ${one_second_steps}   #1 sec
 
-print           "INFO: Settling run complete."
 write_restart   restart_setup_1_settled_3s.static
 print           "INFO: Restart file 'restart_setup_1_settled_3s.static' written."
 
+print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
+run            ${one_second_steps}   #1 sec
+
+write_restart   restart_setup_1_settled_4s.static
+print           "INFO: Restart file 'restart_setup_1_settled_4s.static' written."
+
+print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
+run            ${one_second_steps}   #1 sec
+
+write_restart   restart_setup_1_settled_5s.static
+print           "INFO: Restart file 'restart_setup_1_settled_5s.static' written."
+
+print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
+run            ${one_second_steps}   #1 sec
+
+write_restart   restart_setup_1_settled_6s.static
+print           "INFO: Restart file 'restart_setup_1_settled_6s.static' written."
+
+print           "INFO: Settling run complete."
 
 # Increase the domain:
 fix             wall_x2 all wall/gran model hertz tangential history primitive type 4 xplane ${dom_length}  
