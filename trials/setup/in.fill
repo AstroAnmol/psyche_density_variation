@@ -14,7 +14,7 @@ hard_particles  yes
 communicate     single vel yes
 
 # the product of the processors must equal P, the number of processors used when running the file: mpirun -np 4 ...
-processors      4 3 3
+processors      3 2 1
 # running on 36 processors on dustiest
 
 
@@ -24,7 +24,7 @@ processors      4 3 3
 variable        dom_length equal 3 # 3 meters
 variable        dom_width  equal 1 # 1 meter
 variable        dom_height equal 1.5 # 1.5 meters
-variable        mid_wall   equal 1.5 # 1.5 meters
+variable        mid_wall   equal 1.2 # 1.5 meters
 
 # Declare domain
 region          domain block 0 ${mid_wall} 0 ${dom_width} 0 ${dom_height} units box

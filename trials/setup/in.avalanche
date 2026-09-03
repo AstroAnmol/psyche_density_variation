@@ -18,8 +18,8 @@ processors      4 3 3
 # running on 36 processors on dustiest
 
 #############################
-# read_restart ./restart_setup_1_filled.static
-read_restart ./restart_setup_1_settled_5s.static
+read_restart ./restart_setup_1_filled.static
+# read_restart ./restart_setup_1_settled_5s.static
 
 ### VARIABLES DEFINITION
 
@@ -27,7 +27,7 @@ read_restart ./restart_setup_1_settled_5s.static
 variable        dom_length equal 3 # 3 meters
 variable        dom_width  equal 1 # 1 meter
 variable        dom_height equal 1.5 # 1.5 meters
-variable        mid_wall   equal 1.5 # 1.5 meters
+variable        mid_wall   equal 1.2 # 1.5 meters
 
 
 # variable        dom_dia equal qrt(${dom_length}*${dom_length}+${dom_width}*${dom_width}+${dom_height}*${dom_height})
@@ -394,42 +394,36 @@ set             group pts_floor density ${density_floor} diameter ${particle_dia
 unfix           floor_freeze
 fix             floor_freeze pts_floor freeze
 
-# # Let particles settle in new gravity
-# print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
-# run            ${one_second_steps}   #1 sec
+# Let particles settle in new gravity
+print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+run            ${two_second_steps}   #1 sec
 
-# write_restart   restart_setup_1_settled_1s.static
-# print           "INFO: Restart file 'restart_setup_1_settled_1s.static' written."
+write_restart   restart_setup_1_settled_2s.static
+print           "INFO: Restart file 'restart_setup_1_settled_2s.static' written."
 
-# print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
-# run            ${one_second_steps}   #1 sec
+print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+run            ${two_second_steps}   #2 sec
 
-# write_restart   restart_setup_1_settled_2s.static
-# print           "INFO: Restart file 'restart_setup_1_settled_2s.static' written."
+write_restart   restart_setup_1_settled_4s.static
+print           "INFO: Restart file 'restart_setup_1_settled_4s.static' written."
 
-# print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
-# run            ${one_second_steps}   #1 sec
-
-# write_restart   restart_setup_1_settled_3s.static
-# print           "INFO: Restart file 'restart_setup_1_settled_3s.static' written."
-
-# print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
-# run            ${one_second_steps}   #1 sec
-
-# write_restart   restart_setup_1_settled_4s.static
-# print           "INFO: Restart file 'restart_setup_1_settled_4s.static' written."
-
-# print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
-# run            ${one_second_steps}   #1 sec
-
-# write_restart   restart_setup_1_settled_5s.static
-# print           "INFO: Restart file 'restart_setup_1_settled_5s.static' written."
-
-print           "INFO: Letting particles settle for ${one_second_steps} steps (1 second)."
-run            ${one_second_steps}   #1 sec
+print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+run            ${two_second_steps}   #2 sec
 
 write_restart   restart_setup_1_settled_6s.static
 print           "INFO: Restart file 'restart_setup_1_settled_6s.static' written."
+
+print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+run            ${two_second_steps}   #2 sec
+
+write_restart   restart_setup_1_settled_8s.static
+print           "INFO: Restart file 'restart_setup_1_settled_8s.static' written."
+
+# print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+# run            ${two_second_steps}   #2 sec
+
+# write_restart   restart_setup_1_settled_10s.static
+# print           "INFO: Restart file 'restart_setup_1_settled_10s.static' written."
 
 print           "INFO: Settling run complete."
 
@@ -463,40 +457,40 @@ run             ${two_second_steps}
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_2s.static
-print           "INFO: Restart file 'restart_setup_1_2s.static' written."
+write_restart   restart_setup_1_avalanche_2s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_2s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_4s.static
-print           "INFO: Restart file 'restart_setup_1_4s.static' written."
+write_restart   restart_setup_1_avalanche_4s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_4s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_6s.static
-print           "INFO: Restart file 'restart_setup_1_6s.static' written."
+write_restart   restart_setup_1_avalanche_6s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_6s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_8s.static
-print           "INFO: Restart file 'restart_setup_1_8s.static' written."
+write_restart   restart_setup_1_avalanche_8s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_8s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_10s.static
-print           "INFO: Restart file 'restart_setup_1_10s.static' written."
+write_restart   restart_setup_1_avalanche_10s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_10s.static' written."
 
 print           "INFO: Main Avalanche Phase Completed."
 
