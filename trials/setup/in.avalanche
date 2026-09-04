@@ -334,12 +334,12 @@ pair_coeff	    * *  # the asterisks set force field coeefficients for all atom t
 fix		        wall_z1 all wall/gran model hertz tangential history primitive type 5 zplane 0.0        #floor
 fix		        wall_z2 all wall/gran model hertz tangential history primitive type 5 zplane ${dom_height}
 fix             wall_x1 all wall/gran model hertz tangential history primitive type 5 xplane 0.0            
-# fix             wall_x2 all wall/gran model hertz tangential history primitive type 4 xplane ${dom_length}  
+fix             wall_x2 all wall/gran model hertz tangential history primitive type 4 xplane ${dom_length}  
 fix             wall_y1 all wall/gran model hertz tangential history primitive type 5 yplane 0.0            
 fix             wall_y2 all wall/gran model hertz tangential history primitive type 5 yplane ${dom_width}
 
 ## wall in centre which is removed to simulate mass wasting
-fix             wall_center all wall/gran model hertz tangential history primitive type 5 xplane ${mid_wall}
+# fix             wall_center all wall/gran model hertz tangential history primitive type 5 xplane ${mid_wall}
 
 # Gravity
 # setting the particle assembly in earth gravity
@@ -376,8 +376,8 @@ fix             ctg all check/timestep/gran ${checktimestep} 0.01 0.01
 dump            dmp all custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 
-# ensure particles are static 
-velocity       all set 0. 0. 0.
+# # ensure particles are static 
+# velocity       all set 0. 0. 0.
 
 ## freeze
 fix             floor_freeze pts_floor freeze
@@ -386,10 +386,10 @@ run           0
 
 # particle ground
 region          floor block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
-lattice         hcp ${particle_dia}
-create_atoms    4 region floor
+# lattice         hcp ${particle_dia}
+# create_atoms    4 region floor
 group           pts_floor region floor
-set             group pts_floor density ${density_floor} diameter ${particle_dia}
+# set             group pts_floor density ${density_floor} diameter ${particle_dia}
 
 unfix           floor_freeze
 fix             floor_freeze pts_floor freeze
