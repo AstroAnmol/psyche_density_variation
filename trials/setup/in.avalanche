@@ -18,8 +18,8 @@ processors      4 3 3
 # running on 36 processors on dustiest
 
 #############################
-read_restart ./restart_setup_1_filled.static
-# read_restart ./restart_setup_1_settled_5s.static
+# read_restart ./restart_setup_1_filled.static
+read_restart ./restart_setup_1_avalanche_10s.static
 
 ### VARIABLES DEFINITION
 
@@ -394,103 +394,143 @@ set             group pts_floor density ${density_floor} diameter ${particle_dia
 unfix           floor_freeze
 fix             floor_freeze pts_floor freeze
 
-# Let particles settle in new gravity
-print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
-run            ${two_second_steps}   #1 sec
+# # Let particles settle in new gravity
+# print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+# run            ${two_second_steps}   #1 sec
 
-write_restart   restart_setup_1_settled_2s.static
-print           "INFO: Restart file 'restart_setup_1_settled_2s.static' written."
-
-print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
-run            ${two_second_steps}   #2 sec
-
-write_restart   restart_setup_1_settled_4s.static
-print           "INFO: Restart file 'restart_setup_1_settled_4s.static' written."
-
-print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
-run            ${two_second_steps}   #2 sec
-
-write_restart   restart_setup_1_settled_6s.static
-print           "INFO: Restart file 'restart_setup_1_settled_6s.static' written."
-
-print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
-run            ${two_second_steps}   #2 sec
-
-write_restart   restart_setup_1_settled_8s.static
-print           "INFO: Restart file 'restart_setup_1_settled_8s.static' written."
+# write_restart   restart_setup_1_settled_2s.static
+# print           "INFO: Restart file 'restart_setup_1_settled_2s.static' written."
 
 # print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
 # run            ${two_second_steps}   #2 sec
 
-# write_restart   restart_setup_1_settled_10s.static
-# print           "INFO: Restart file 'restart_setup_1_settled_10s.static' written."
+# write_restart   restart_setup_1_settled_4s.static
+# print           "INFO: Restart file 'restart_setup_1_settled_4s.static' written."
 
-print           "INFO: Settling run complete."
+# print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+# run            ${two_second_steps}   #2 sec
 
-# Increase the domain:
-fix             wall_x2 all wall/gran model hertz tangential history primitive type 4 xplane ${dom_length}  
+# write_restart   restart_setup_1_settled_6s.static
+# print           "INFO: Restart file 'restart_setup_1_settled_6s.static' written."
 
-change_box      all boundary f f fs x final 0 ${dom_length} # 280 mm
+# print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+# run            ${two_second_steps}   #2 sec
 
-# particle ground
-region          floor_full block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
-lattice         hcp ${particle_dia}
-create_atoms    4 region floor_full
-group           pts_floor_full region floor_full
-set             group pts_floor_full density ${density_floor} diameter ${particle_dia}
+# write_restart   restart_setup_1_settled_8s.static
+# print           "INFO: Restart file 'restart_setup_1_settled_8s.static' written."
 
-unfix           floor_freeze
-fix             floor_freeze pts_floor_full freeze
+# # print           "INFO: Letting particles settle for ${two_second_steps} steps (2 second)."
+# # run            ${two_second_steps}   #2 sec
 
-# Pull the stopper
-unfix           wall_center
-print           "INFO: Center wall unfix_ed. Stopper pulled."
+# # write_restart   restart_setup_1_settled_10s.static
+# # print           "INFO: Restart file 'restart_setup_1_settled_10s.static' written."
+
+# print           "INFO: Settling run complete."
+
+# # Increase the domain:
+# fix             wall_x2 all wall/gran model hertz tangential history primitive type 4 xplane ${dom_length}  
+
+# change_box      all boundary f f fs x final 0 ${dom_length} # 280 mm
+
+# # particle ground
+# region          floor_full block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
+# lattice         hcp ${particle_dia}
+# create_atoms    4 region floor_full
+# group           pts_floor_full region floor_full
+# set             group pts_floor_full density ${density_floor} diameter ${particle_dia}
+
+# unfix           floor_freeze
+# fix             floor_freeze pts_floor_full freeze
+
+# # Pull the stopper
+# unfix           wall_center
+# print           "INFO: Center wall unfix_ed. Stopper pulled."
 
 
-# --- Avalanche Phase ---
-print           "INFO: Starting avalanching simulation for ${two_second_steps} steps (2 seconds)."
+# # --- Avalanche Phase ---
+# print           "INFO: Starting avalanching simulation for ${two_second_steps} steps (2 seconds)."
 
+
+# # RUN FOR 2.0 SECONDS
+# run             ${two_second_steps} 
+#                 # "write_restart restart_mag_drop.static"
+
+# print           "INFO: Avalanching run for 2 seconds complete."
+
+# write_restart   restart_setup_1_avalanche_2s.static
+# print           "INFO: Restart file 'restart_setup_1_avalanche_2s.static' written."
+
+# # RUN FOR 2.0 SECONDS
+# run             ${two_second_steps} 
+
+# print           "INFO: Avalanching run for 2 seconds complete."
+
+# write_restart   restart_setup_1_avalanche_4s.static
+# print           "INFO: Restart file 'restart_setup_1_avalanche_4s.static' written."
+
+# # RUN FOR 2.0 SECONDS
+# run             ${two_second_steps} 
+
+# print           "INFO: Avalanching run for 2 seconds complete."
+
+# write_restart   restart_setup_1_avalanche_6s.static
+# print           "INFO: Restart file 'restart_setup_1_avalanche_6s.static' written."
+
+# # RUN FOR 2.0 SECONDS
+# run             ${two_second_steps} 
+
+# print           "INFO: Avalanching run for 2 seconds complete."
+
+# write_restart   restart_setup_1_avalanche_8s.static
+# print           "INFO: Restart file 'restart_setup_1_avalanche_8s.static' written."
+
+# # RUN FOR 2.0 SECONDS
+# run             ${two_second_steps} 
+
+# print           "INFO: Avalanching run for 2 seconds complete."
+
+# write_restart   restart_setup_1_avalanche_10s.static
+# print           "INFO: Restart file 'restart_setup_1_avalanche_10s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
-                # "write_restart restart_mag_drop.static"
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_avalanche_2s.static
-print           "INFO: Restart file 'restart_setup_1_avalanche_2s.static' written."
+write_restart   restart_setup_1_avalanche_12s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_12s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_avalanche_4s.static
-print           "INFO: Restart file 'restart_setup_1_avalanche_4s.static' written."
+write_restart   restart_setup_1_avalanche_14s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_14s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_avalanche_6s.static
-print           "INFO: Restart file 'restart_setup_1_avalanche_6s.static' written."
+write_restart   restart_setup_1_avalanche_16s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_16s.static' written."
 
 # RUN FOR 2.0 SECONDS
 run             ${two_second_steps} 
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_avalanche_8s.static
-print           "INFO: Restart file 'restart_setup_1_avalanche_8s.static' written."
+write_restart   restart_setup_1_avalanche_18s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_18s.static' written."
 
 # RUN FOR 2.0 SECONDS
-run             ${two_second_steps} 
+run            ${two_second_steps}
 
 print           "INFO: Avalanching run for 2 seconds complete."
 
-write_restart   restart_setup_1_avalanche_10s.static
-print           "INFO: Restart file 'restart_setup_1_avalanche_10s.static' written."
+write_restart   restart_setup_1_avalanche_20s.static
+print           "INFO: Restart file 'restart_setup_1_avalanche_20s.static' written."
 
 print           "INFO: Main Avalanche Phase Completed."
 
