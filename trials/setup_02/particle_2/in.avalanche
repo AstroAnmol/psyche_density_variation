@@ -14,7 +14,7 @@ hard_particles  yes
 communicate     single vel yes
 
 # the product of the processors must equal P, the number of processors used when running the file: mpirun -np 4 ...
-processors      7 2 1
+processors      6 2 3
 # running on 36 processors on dustiest
 
 
@@ -433,11 +433,14 @@ fix             ctg all check/timestep/gran ${checktimestep} 0.01 0.01
 # Create imaging information
 dump            dmp all custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
-
 # ensure particles are static 
 velocity       all set 0. 0. 0.
 
-run                 0
+run             ${dumpstep}
+
+undump          dmp
+
+dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Fill the left half (1 secs)
 run             ${five_second_steps}     #5.0 sec
@@ -456,10 +459,12 @@ run             ${five_second_steps}     #5 sec
 # Stop insertion
 unfix           ins
 
-run             ${five_second_steps}
+run             ${one_second_steps}
 
-run             ${five_second_steps}
+# run             ${five_second_steps}
+
+# run             ${five_second_steps}
 
 
-# write_restart   restart_setup_1_filled.static
-# print           "INFO: Restart file 'restart_setup_1_filled.static' written."
+write_restart   restart_setup_2_particle_2.static
+print           "INFO: Restart file 'restart_setup_2_particle_2.static' written."
