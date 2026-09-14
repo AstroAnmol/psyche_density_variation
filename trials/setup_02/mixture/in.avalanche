@@ -7,7 +7,7 @@ atom_style      hybrid granular dipole
 atom_modify     sort 10000 0
 
 # boundaries
-boundary        f f f
+boundary        f p f
 
 newton          off
 hard_particles  yes
@@ -21,10 +21,10 @@ processors      6 2 3
 ### VARIABLES DEFINITION
 
 # Dimensions of the box
-variable        dom_length equal 2.1 # 3.0 meters
-variable        dom_width  equal 0.5 # 0.5 meter
+variable        dom_length equal 2.0 # 3.0 meters
+variable        dom_width  equal 0.25 # 0.25 meter
 variable        dom_height equal 1.2 # 1.2 meters
-variable        mid_wall   equal 2.0 # 2.0 meters
+variable        mid_wall   equal 1.5 # 2.0 meters
 variable        fill_height equal 0.9 # meter
 variable        insert_wall equal 0.5 # 0.5 meters
 
@@ -338,11 +338,9 @@ pair_coeff	    * *  # the asterisks set force field coeefficients for all atom t
 # fix		        wall_z2 all wall/gran model hertz tangential history primitive type 5 zplane ${dom_height}
 fix             wall_x1 all wall/gran model hertz tangential history primitive type 5 xplane 0.0            
 fix             wall_x2 all wall/gran model hertz tangential history primitive type 5 xplane ${dom_length}  
-fix             wall_y1 all wall/gran model hertz tangential history primitive type 5 yplane 0.0            
-fix             wall_y2 all wall/gran model hertz tangential history primitive type 5 yplane ${dom_width}
+# fix             wall_y1 all wall/gran model hertz tangential history primitive type 5 yplane 0.0            
+# fix             wall_y2 all wall/gran model hertz tangential history primitive type 5 yplane ${dom_width}
 
-## wall in centre which is removed to simulate mass wasting
-# fix             wall_center all wall/gran model hertz tangential history primitive type 5  xplane ${mid_wall}
 
 # Gravity
 # setting the particle assembly in earth gravity
@@ -361,19 +359,19 @@ thermo_modify	lost ignore norm no
 
 ## Particle insertion
 variable        2_5_particle_rad equal ${particle_radius}*2.5
-variable        number_of_particles equal 10000
+variable        number_of_particles equal 30000
 
 # particle ground
 region          floor block 2.0 EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
 lattice         hcp ${particle_dia}
 
 # Angle in radians and normal vector (n_x, 0, n_z)
-variable        theta_rad equal 20.0*PI/180.0
+variable        theta_rad equal 30.0*PI/180.0
 variable        nx equal sin(${theta_rad})
 variable        nz equal  cos(${theta_rad})
 variable        thick equal ${particle_dia}
 
-variable        incline_x equal 2.0 # Incline meets the floor at x = 2.0 m
+variable        incline_x equal ${mid_wall}
 variable        px_top equal ${incline_x}+${thick}*${nx}
 variable        pz_top equal ${thick}*${nz}
 
@@ -448,6 +446,10 @@ run             ${five_second_steps}     #5.0 sec
 run             ${five_second_steps}     #5.0 sec
 
 run             ${five_second_steps}     #5.0 sec   
+
+run             ${five_second_steps}     #5 sec
+
+run             ${five_second_steps}     #5 sec
 
 run             ${five_second_steps}     #5 sec
 
