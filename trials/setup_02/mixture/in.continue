@@ -355,6 +355,9 @@ dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z v
 # Run for another 5.0 seconds
 run             ${five_second_steps}
 
-write_restart   restart_setup_2_mixture_continue_5s.static
-print           "INFO: Restart file 'restart_setup_2_mixture_continue_5s.static' written."
+# Run for another 5.0 seconds
+run             ${five_second_steps}
+
+write_restart   restart_setup_2_mixture_continue_10s.static
+print           "INFO: Restart file 'restart_setup_2_mixture_continue_10s.static' written."
 print           "INFO: Continuation run completed."
