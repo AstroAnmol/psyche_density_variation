@@ -362,7 +362,7 @@ variable        2_5_particle_rad equal ${particle_radius}*2.5
 variable        number_of_particles equal 30000
 
 # particle ground
-region          floor block 2.0 EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
+region          floor block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
 lattice         hcp ${particle_dia}
 
 # Angle in radians and normal vector (n_x, 0, n_z)
