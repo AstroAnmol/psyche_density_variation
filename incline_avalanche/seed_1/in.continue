@@ -49,8 +49,8 @@ variable        mag_susc_kamacite equal 20.0 # Assumed
 
 # METALLIC REGOLITH (TROILITE, FeS)
 variable        density_troilite equal 4900 # kg/m3 # Tanton et al 2020
-variable        youngsM_troilite equal 6.0e9 # N/m^2 # Tang 2023
-variable        poissons_troilite equal 0.25 # Tang 2023
+variable        youngsM_troilite equal 93.36e7 # N/m^2 # Tang 2023
+variable        poissons_troilite equal 0.26 # Tang 2023
 variable        mag_susc_troilite equal 5.0 # Assumed
 
 # ROCKY ASTEROID REGOLITH (Frizzell et al 2025)
