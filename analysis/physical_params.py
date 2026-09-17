@@ -184,7 +184,7 @@ def physical_params(dump_input, exclude_types=(4, 5), custom_volume=None, verbos
         dump_input (str, Path, pd.DataFrame, or tuple):
             Path to a .post / .dump file, a loaded DataFrame, or a (metadata, df) tuple.
         exclude_types (tuple or list):
-            Particle types to exclude (e.g. 4 for floor, 5 for wall). Default is (4, 5).
+            Particle types to exclude (e.g. 1 for floor, 5 for wall). Default is (4, 5).
         custom_volume (float, optional):
             Custom bed volume in m^3. If None, computed from the bounding box of particle extents.
         verbose (bool):
@@ -358,4 +358,5 @@ def physical_params(dump_input, exclude_types=(4, 5), custom_volume=None, verbos
 
     return results
 
-physical_params(dump_input="trials/setup/results/dump2500000.post", exclude_types=[4, 5], verbose=True)
+if __name__ == "__main__":
+    physical_params(dump_input="/Volumes/Sandisk/post-doc/incline_avalanche/seed_1/results/dump10245000.post", exclude_types=[1, 5], verbose=True)
