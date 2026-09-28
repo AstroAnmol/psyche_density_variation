@@ -402,7 +402,7 @@ fix             pdd1 all particledistribution/discrete/numberbased 2113451 3 pts
 # # region and insertion
 # Insertion boundary offsets (margin away from walls)
 variable        ins_margin  equal 2.0*${particle_dia} # 0.02 m
-variable        ins_xlo     equal ${ins_margin}`
+variable        ins_xlo     equal ${ins_margin}
 variable        ins_xhi     equal ${insert_wall}-${ins_margin}
 variable        ins_ylo     equal ${ins_margin}
 variable        ins_yhi     equal ${dom_width}-${ins_margin}
