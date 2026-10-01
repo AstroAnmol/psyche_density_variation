@@ -444,8 +444,7 @@ shell           mkdir -p results
 dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Settling run: let particles settle gently into contact under viscous damping
-variable        settle_steps equal 3000
-run             ${settle_steps}
+run             ${0_1_second_steps}
 
 # Remove viscous damping and insertion fix once bed is settled
 unfix           damp
