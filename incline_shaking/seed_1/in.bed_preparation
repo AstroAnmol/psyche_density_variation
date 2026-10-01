@@ -16,8 +16,8 @@ communicate     single vel yes
 # the product of the processors must equal P, the number of processors used when running the file: mpirun -np 4 ...
 # processors      6 2 3
 # running on 36 processors on dustiest
-processors      6 1 1
-# running on 6 processors on HP-server
+processors      4 1 1
+# running on 4 processors on HP-server
 
 ### VARIABLES DEFINITION
 
