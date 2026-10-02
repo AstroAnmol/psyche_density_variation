@@ -421,6 +421,8 @@ region          box_bed block ${ins_xlo} ${ins_xhi} ${ins_ylo} ${ins_yhi} 0.0 ${
 region          incline_bed intersect 3 p_bed_bot p_bed_top box_bed
 group           prtcls region incline_bed
 
+fix             wall_ins_xhi wall/gran model hertz tangential history primitive type 5 xplane ${ins_xhi}
+
 # Insert particles randomly over the whole incline using distributiontemplate pdd1
 fix             ins prtcls insert/pack seed 104729 distributiontemplate pdd1 &
                 insert_every once overlapcheck yes region incline_bed &
@@ -438,10 +440,10 @@ fix             damp prtcls viscous ${gamma_settle}
 fix             ctg all check/timestep/gran ${checktimestep} 0.01 0.01
 
 # Create results directory if it does not exist
-shell           mkdir -p results
+shell           mkdir results
 
 # Create imaging information
-dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
+dump            dmp all custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Settling run: let particles settle gently into contact under viscous damping
 run             ${0_1_second_steps}
@@ -449,10 +451,14 @@ run             ${0_1_second_steps}
 # Remove viscous damping and insertion fix once bed is settled
 unfix           damp
 unfix           ins
-velocity        prtcls set 0. 0. 0.
+# velocity        prtcls set 0. 0. 0.
+undump          dmp
+
+dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
+
 
 # Relaxation run under pure gravity to verify mechanical equilibrium
-run             ${dumpstep}
+run             ${one_second_steps}
 
 write_restart   restart_setup_2_mixture.static
 print           "INFO: Restart file 'restart_setup_2_mixture.static' written."
