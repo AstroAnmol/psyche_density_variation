@@ -421,7 +421,7 @@ region          box_bed block ${ins_xlo} ${ins_xhi} ${ins_ylo} ${ins_yhi} 0.0 ${
 region          incline_bed intersect 3 p_bed_bot p_bed_top box_bed
 group           prtcls region incline_bed
 
-fix             wall_ins_xhi wall/gran model hertz tangential history primitive type 5 xplane ${ins_xhi}
+fix             wall_ins_xhi all wall/gran model hertz tangential history primitive type 5 xplane ${ins_xhi}
 
 # Insert particles randomly over the whole incline using distributiontemplate pdd1
 fix             ins prtcls insert/pack seed 104729 distributiontemplate pdd1 &
