@@ -292,7 +292,8 @@ variable        neighstep equal 4e-6/${dt} # create a new neigh list
 # Variables for run times
 variable        half_second_steps equal 0.5/${dt} # number of steps for 0.5 seconds time
 variable        one_second_steps equal 1/${dt} # number of steps for 1.0 seconds time
-variable        0_1_second_steps equal 0.1/${dt}
+variable        two_second_steps equal 2/${dt}
+variable        one_tenth_second_steps equal 0.1/${dt}
 variable        five_second_steps equal 5/${dt}
 
 ## DEFINITING SIM PROPERTIES
@@ -446,7 +447,7 @@ shell           mkdir results
 dump            dmp all custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Settling run: let particles settle gently into contact under viscous damping
-run             ${0_1_second_steps}
+run             ${two_second_steps}
 
 # Remove viscous damping and insertion fix once bed is settled
 unfix           damp
