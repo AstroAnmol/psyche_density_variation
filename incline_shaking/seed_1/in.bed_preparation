@@ -361,7 +361,7 @@ thermo_modify	lost ignore norm no
 
 ## Particle insertion
 variable        2_5_particle_rad equal ${particle_radius}*2.5
-variable        number_of_particles equal 30000
+variable        number_of_particles equal 40000
 
 # particle ground
 region          floor block ${mid_wall} EDGE EDGE EDGE ${particle_radius} ${2_5_particle_rad}
@@ -401,9 +401,9 @@ fix             pdd1 all particledistribution/discrete/numberbased 2113379 3 pts
 
 # fix             pdd1 all particledistribution/discrete/numberbased 2113379 1 pts3 1.0
 
-# # Incline Bed Region and Insertion
-# Defined as an inclined slab above the floor incline spanning the entire incline (x = 0 to mid_wall)
-variable        h_bed       equal 0.15 # height of inclined slab for packing
+# # Bed Region and Insertion
+# Defined across both the incline (x = 0 to mid_wall) and the flat floor (x = mid_wall to dom_length)
+variable        h_bed       equal 0.15 # height of slab for packing
 variable        px_bed_bot  equal ${incline_x}+${thick}*${nx}
 variable        pz_bed_bot  equal ${thick}*${nz}
 region          p_bed_bot plane ${px_bed_bot} 0.0 ${pz_bed_bot} ${nx} 0.0 ${nz} side in
@@ -414,19 +414,26 @@ region          p_bed_top plane ${px_bed_top} 0.0 ${pz_bed_top} ${nx} 0.0 ${nz} 
 
 variable        ins_margin  equal 2.0*${particle_dia} # 0.02 m
 variable        ins_xlo     equal ${ins_margin}
-variable        ins_xhi     equal ${mid_wall}-${ins_margin}
+variable        ins_xhi     equal ${dom_length}-${ins_margin}
 variable        ins_ylo     equal ${ins_margin}
 variable        ins_yhi     equal ${dom_width}-${ins_margin}
-region          box_bed block ${ins_xlo} ${ins_xhi} ${ins_ylo} ${ins_yhi} 0.0 ${dom_height}
 
-region          incline_bed intersect 3 p_bed_bot p_bed_top box_bed
-group           prtcls region incline_bed
+# Incline bed section (x = ins_xlo to mid_wall)
+region          box_incline_bed block ${ins_xlo} ${mid_wall} ${ins_ylo} ${ins_yhi} 0.0 ${dom_height}
+region          incline_bed intersect 3 p_bed_bot p_bed_top box_incline_bed
 
-fix             wall_ins_xhi all wall/gran model hertz tangential history primitive type 5 xplane ${ins_xhi}
+# Flat floor bed section (x = mid_wall to ins_xhi)
+variable        flat_zlo    equal 2.5*${particle_dia} # just above flat floor atoms
+variable        flat_zhi    equal ${flat_zlo}+${h_bed}
+region          flat_bed block ${mid_wall} ${ins_xhi} ${ins_ylo} ${ins_yhi} ${flat_zlo} ${flat_zhi}
 
-# Insert particles randomly over the whole incline using distributiontemplate pdd1
+# Combined bed spanning entire simulation box
+region          total_bed union 2 incline_bed flat_bed
+group           prtcls region total_bed
+
+# Insert particles randomly over the whole bed using distributiontemplate pdd1
 fix             ins prtcls insert/pack seed 104729 distributiontemplate pdd1 &
-                insert_every once overlapcheck yes region incline_bed &
+                insert_every once overlapcheck yes region total_bed &
                 particles_in_region ${number_of_particles} ntry_mc 100000
 
 ### Detailed settings
@@ -460,8 +467,6 @@ dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z v
 
 # Relaxation run under pure gravity to verify mechanical equilibrium
 run             ${five_second_steps}
-
-unfix           wall_ins_xhi
 
 run             ${five_second_steps}
 
