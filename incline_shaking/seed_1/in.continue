@@ -18,7 +18,7 @@ processors      6 2 3
 # running on 36 processors on dustiest
 
 #############################
-read_restart    restart_setup_2_mixture.static
+read_restart    restart_incline_bed_seed_1.static
 
 ### VARIABLES DEFINITION
 
@@ -282,6 +282,7 @@ variable        neighstep equal 4e-6/${dt} # create a new neigh list
 # Variables for run times
 variable        half_second_steps equal 0.5/${dt} # number of steps for 0.5 seconds time
 variable        one_second_steps equal 1/${dt} # number of steps for 1.0 seconds time
+variable        two_second_steps equal 2/${dt} # number of steps for 2.0 seconds time
 variable        0_1_second_steps equal 0.1/${dt}
 variable        five_second_steps equal 5/${dt}
 
@@ -359,8 +360,8 @@ variable        omega equal 10 # 10 Hz
 # Shake the particle floor at 30 hz and 0.5 mm amplitude
 fix             shear_wiggle pts_total move wiggle 0 0 0.5E-3 0.0333333
 
-# Run for 1.0 seconds
-run             ${one_second_steps}
+# Run for 2.0 seconds
+run             ${two_second_steps}
 
 # Stop shaking
 unfix shear_wiggle
@@ -368,6 +369,6 @@ unfix shear_wiggle
 # Run for another 5.0 seconds
 run             ${five_second_steps}
 
-write_restart   restart_setup_2_mixture_continue.static
-print           "INFO: Restart file 'restart_setup_2_mixture_continue.static' written."
+write_restart   restart_incline_bed_seed_1_continue.static
+print           "INFO: Restart file 'restart_incline_bed_seed_1_continue.static' written."
 print           "INFO: Continuation run completed."
