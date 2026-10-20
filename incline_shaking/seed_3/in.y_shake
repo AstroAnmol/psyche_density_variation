@@ -354,7 +354,7 @@ fix             ctg all check/timestep/gran ${checktimestep} 0.01 0.01
 dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Shake the floor for 1 second
-variable        yamp equal 0.1*${particle_dia}/2.0 # 1 cm = 10 mm
+variable        yamp equal ${particle_dia}/2.0 # 1 cm = 10 mm
 variable        omega equal 10 # 10 Hz
 
 # Shake the particle floor horizontally (y)
