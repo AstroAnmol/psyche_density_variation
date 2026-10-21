@@ -353,15 +353,19 @@ fix             ctg all check/timestep/gran ${checktimestep} 0.01 0.01
 # Create imaging information
 dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
+
+# Settle first
+run             ${five_second_steps}
+
 # Shake the floor for 1 second
-variable        yamp equal ${particle_dia}/2.0 # 1 cm = 10 mm
+variable        yamp equal ${particle_dia}# 1 cm = 10 mm
 variable        omega equal 10 # 10 Hz
 
 # Shake the particle floor horizontally (y)
 fix             shear_wiggle pts_total move wiggle 0 ${yamp} 0 ${omega}
 
-# Run for 1.0 seconds
-run             ${one_second_steps}
+# Run for 2.0 seconds
+run             ${two_second_steps}
 
 # Stop shaking
 unfix shear_wiggle
