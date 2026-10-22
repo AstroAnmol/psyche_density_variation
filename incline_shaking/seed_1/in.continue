@@ -351,22 +351,31 @@ fix		        integr prtcls nve/sphere update dipole
 fix             ctg all check/timestep/gran ${checktimestep} 0.01 0.01
 
 # Create imaging information
-dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
+dump            dmp all custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Shake the floor for 1 second
-variable        xamp equal ${particle_dia}/2.0 # 1 cm = 10 mm
-variable        omega equal 10 # 10 Hz
+variable        amp equal ${particle_dia}/10.0 # 1 mm
+variable        freq equal 5 # 5 Hz
+variable        time_period equal 1/${freq}
 
-# Shake the particle floor at 30 hz and 0.5 mm amplitude
-fix             shear_wiggle pts_total move wiggle 0 0 0.5E-3 0.0333333
+# Shake the particle floor at frequency f and amplitude amp
+fix             shear_wiggle pts_total move wiggle 0 0 ${amp} ${time_period}
 
 # Run for 2.0 seconds
 run             ${two_second_steps}
 
 # Stop shaking
-unfix shear_wiggle
+unfix           shear_wiggle
+
+undump          dmp
+
+# Settling
+
+dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Run for another 5.0 seconds
+run             ${five_second_steps}
+
 run             ${five_second_steps}
 
 write_restart   restart_incline_bed_seed_1_continue.static
