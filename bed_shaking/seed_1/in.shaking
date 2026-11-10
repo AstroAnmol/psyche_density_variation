@@ -14,9 +14,9 @@ hard_particles  yes
 communicate     single vel yes
 
 # the product of the processors must equal P, the number of processors used when running the file: mpirun -np 4 ...
-# processors      6 2 3
+processors      2 2 8
 # running on 36 processors on dustiest
-processors      3 2 2
+# processors      3 2 2
 # running on 12 processors on wsl-ubuntu
 
 #############################
