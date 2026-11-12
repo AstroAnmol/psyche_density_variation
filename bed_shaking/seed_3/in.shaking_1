@@ -20,7 +20,7 @@ processors      3 3 4
 # running on 12 processors on wsl-ubuntu
 
 #############################
-read_restart    restart_vibration_bed_seed_2.static
+read_restart    restart_vibration_bed_seed_3.static
 
 ### VARIABLES DEFINITION
 
@@ -375,8 +375,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_vibration_bed_seed_2_shaken.static
-print           "INFO: Restart file 'restart_vibration_bed_seed_2_shaken.static' written."
+write_restart   restart_vibration_bed_seed_3_shaken_part_1.static
+print           "INFO: Restart file 'restart_vibration_bed_seed_3_shaken.static' written."
 print           "INFO: Continuation run completed."
 
 undump          dmp
@@ -390,6 +390,6 @@ run             ${five_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_vibration_bed_seed_2_continue.static
-print           "INFO: Restart file 'restart_vibration_bed_seed_2_continue.static' written."
+write_restart   restart_vibration_bed_seed_3_continue_part_1.static
+print           "INFO: Restart file 'restart_vibration_bed_seed_3_continue_part_1.static' written."
 print           "INFO: Continuation run completed."

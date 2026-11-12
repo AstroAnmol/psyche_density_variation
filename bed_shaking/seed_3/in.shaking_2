@@ -20,7 +20,7 @@ processors      3 3 4
 # running on 12 processors on wsl-ubuntu
 
 #############################
-read_restart    restart_vibration_bed_seed_1.static
+read_restart    restart_vibration_bed_seed_3_continue_1.static
 
 ### VARIABLES DEFINITION
 
@@ -285,6 +285,7 @@ variable        neighstep equal 4e-6/${dt} # create a new neigh list
 variable        half_second_steps equal 0.5/${dt} # number of steps for 0.5 seconds time
 variable        one_second_steps equal 1/${dt} # number of steps for 1.0 seconds time
 variable        two_second_steps equal 2/${dt} # number of steps for 2.0 seconds time
+variable        three_second_steps equal 3/${dt} # number of steps for 3.0 seconds time
 variable        0_1_second_steps equal 0.1/${dt}
 variable        five_second_steps equal 5/${dt}
 
@@ -375,8 +376,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_vibration_bed_seed_1_shaken.static
-print           "INFO: Restart file 'restart_vibration_bed_seed_1_shaken.static' written."
+write_restart   restart_vibration_bed_seed_3_shaken_part_2.static
+print           "INFO: Restart file 'restart_vibration_bed_seed_3_shaken_part_2.static' written."
 print           "INFO: Continuation run completed."
 
 undump          dmp
@@ -386,10 +387,10 @@ undump          dmp
 dump            dmp prtcls custom ${dumpstep} results/dump*.post id type x y z vx vy vz radius fx fy fz mass
 
 # Run for another 5.0 seconds
-run             ${five_second_steps}
+run             ${three_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_vibration_bed_seed_1_continue.static
-print           "INFO: Restart file 'restart_vibration_bed_seed_1_continue.static' written."
+write_restart   restart_vibration_bed_seed_3_continue_part_2.static
+print           "INFO: Restart file 'restart_vibration_bed_seed_3_continue_part_2.static' written."
 print           "INFO: Continuation run completed."
