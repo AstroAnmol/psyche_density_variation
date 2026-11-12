@@ -20,7 +20,7 @@ processors      3 3 4
 # running on 12 processors on wsl-ubuntu
 
 #############################
-read_restart    restart_vibration_bed_seed_1_continue_1.static
+read_restart    restart_vibration_bed_seed_1_continue_part_1.static
 
 ### VARIABLES DEFINITION
 
