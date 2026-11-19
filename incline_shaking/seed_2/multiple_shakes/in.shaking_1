@@ -20,7 +20,7 @@ processors      6 2 3
 # running on 12 processors on wsl-ubuntu
 
 #############################
-read_restart    ../restart_incline_bed_seed_1.static
+read_restart    ../restart_incline_bed_seed_2.static
 
 ### VARIABLES DEFINITION
 
@@ -376,8 +376,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_incline_bed_shaken_seed_1_part_1.static
-print           "INFO: Restart file 'restart_incline_bed_shaken_seed_1_part_1.static' written."
+write_restart   restart_incline_bed_shaken_seed_2_part_1.static
+print           "INFO: Restart file 'restart_incline_bed_shaken_seed_2_part_1.static' written."
 
 undump          dmp
 
@@ -390,8 +390,8 @@ run             ${three_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_incline_bed_continue_seed_1_part_1.static
-print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_1.static' written."
+write_restart   restart_incline_bed_continue_seed_2_part_1.static
+print           "INFO: Restart file 'restart_incline_bed_continue_seed_2_part_1.static' written."
 
 ######################################
 # 2nd Shake
@@ -405,8 +405,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_incline_bed_shaken_seed_1_part_2.static
-print           "INFO: Restart file 'restart_incline_bed_shaken_seed_1_part_2.static' written."
+write_restart   restart_incline_bed_shaken_seed_2_part_2.static
+print           "INFO: Restart file 'restart_incline_bed_shaken_seed_2_part_2.static' written."
 
 undump          dmp
 
@@ -419,8 +419,8 @@ run             ${three_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_incline_bed_continue_seed_1_part_2.static
-print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_2.static' written."
+write_restart   restart_incline_bed_continue_seed_2_part_2.static
+print           "INFO: Restart file 'restart_incline_bed_continue_seed_2_part_2.static' written."
 
 ######################################
 # 3rd Shake
@@ -434,8 +434,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_incline_bed_shaken_seed_1_part_3.static
-print           "INFO: Restart file 'restart_incline_bed_shaken_seed_1_part_3.static' written."
+write_restart   restart_incline_bed_shaken_seed_2_part_3.static
+print           "INFO: Restart file 'restart_incline_bed_shaken_seed_2_part_3.static' written."
 
 undump          dmp
 
@@ -448,8 +448,8 @@ run             ${three_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_incline_bed_continue_seed_1_part_3.static
-print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_3.static' written."
+write_restart   restart_incline_bed_continue_seed_2_part_3.static
+print           "INFO: Restart file 'restart_incline_bed_continue_seed_2_part_3.static' written."
 
 ######################################
 # 4th Shake
@@ -463,8 +463,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_incline_bed_shaken_seed_1_part_4.static
-print           "INFO: Restart file 'restart_incline_bed_shaken_seed_1_part_4.static' written."
+write_restart   restart_incline_bed_shaken_seed_2_part_4.static
+print           "INFO: Restart file 'restart_incline_bed_shaken_seed_2_part_4.static' written."
 
 undump          dmp
 
@@ -477,8 +477,8 @@ run             ${three_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_incline_bed_continue_seed_1_part_4.static
-print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_4.static' written."
+write_restart   restart_incline_bed_continue_seed_2_part_4.static
+print           "INFO: Restart file 'restart_incline_bed_continue_seed_2_part_4.static' written."
 
 ######################################
 # 5th Shake
@@ -492,8 +492,8 @@ run             ${two_second_steps}
 # Stop shaking
 unfix           shear_wiggle
 
-write_restart   restart_incline_bed_shaken_seed_1_part_5.static
-print           "INFO: Restart file 'restart_incline_bed_shaken_seed_1_part_5.static' written."
+write_restart   restart_incline_bed_shaken_seed_2_part_5.static
+print           "INFO: Restart file 'restart_incline_bed_shaken_seed_2_part_5.static' written."
 
 undump          dmp
 
@@ -506,5 +506,5 @@ run             ${three_second_steps}
 
 # run             ${five_second_steps}
 
-write_restart   restart_incline_bed_continue_seed_1_part_5.static
-print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_5.static' written."
+write_restart   restart_incline_bed_continue_seed_2_part_5.static
+print           "INFO: Restart file 'restart_incline_bed_continue_seed_2_part_5.static' written."
