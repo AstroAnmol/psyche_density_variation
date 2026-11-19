@@ -285,6 +285,7 @@ variable        neighstep equal 4e-6/${dt} # create a new neigh list
 variable        half_second_steps equal 0.5/${dt} # number of steps for 0.5 seconds time
 variable        one_second_steps equal 1/${dt} # number of steps for 1.0 seconds time
 variable        two_second_steps equal 2/${dt} # number of steps for 2.0 seconds time
+variable        three_second_steps equal 3/${dt} # number of steps for 3.0 seconds time
 variable        0_1_second_steps equal 0.1/${dt}
 variable        five_second_steps equal 5/${dt}
 
