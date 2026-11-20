@@ -398,6 +398,9 @@ print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_1.
 # 2nd Shake
 ######################################
 
+# Shake the particle floor at frequency f and amplitude amp
+fix             shear_wiggle pts_total move wiggle 0 0 ${amp} ${time_period}
+
 # Run for 2.0 seconds
 run             ${two_second_steps}
 
@@ -426,6 +429,9 @@ print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_2.
 ######################################
 # 3rd Shake
 ######################################
+
+# Shake the particle floor at frequency f and amplitude amp
+fix             shear_wiggle pts_total move wiggle 0 0 ${amp} ${time_period}
 
 # Run for 2.0 seconds
 run             ${two_second_steps}
@@ -456,6 +462,9 @@ print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_3.
 # 4th Shake
 ######################################
 
+# Shake the particle floor at frequency f and amplitude amp
+fix             shear_wiggle pts_total move wiggle 0 0 ${amp} ${time_period}
+
 # Run for 2.0 seconds
 run             ${two_second_steps}
 
@@ -484,6 +493,9 @@ print           "INFO: Restart file 'restart_incline_bed_continue_seed_1_part_4.
 ######################################
 # 5th Shake
 ######################################
+
+# Shake the particle floor at frequency f and amplitude amp
+fix             shear_wiggle pts_total move wiggle 0 0 ${amp} ${time_period}
 
 # Run for 2.0 seconds
 run             ${two_second_steps}
